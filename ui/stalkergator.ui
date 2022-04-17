@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>901</width>
+    <height>659</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -41,7 +41,7 @@
         <property name="font">
          <font>
           <family>Segoe UI Light</family>
-          <pointsize>28</pointsize>
+          <pointsize>20</pointsize>
          </font>
         </property>
         <property name="text">
@@ -54,7 +54,7 @@
         <property name="font">
          <font>
           <family>Segoe UI Light</family>
-          <pointsize>28</pointsize>
+          <pointsize>20</pointsize>
          </font>
         </property>
         <property name="text">
@@ -94,7 +94,7 @@
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap>../files/map.png</pixmap>
+       <pixmap>../files/map_r.png</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
@@ -111,7 +111,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>901</width>
      <height>21</height>
     </rect>
    </property>
