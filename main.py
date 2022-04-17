@@ -1,15 +1,13 @@
 import requests
-from pprint import pprint
-import json
-import numpy as np
-from scipy.optimize import fsolve
+from pathfinding.core.diagonal_movement import DiagonalMovement
+from pathfinding.core.grid import Grid
+from pathfinding.finder.a_star import AStarFinder
 
 class InexactFloat(float):
     def __eq__(self, other):
         try:
             return abs(self.real - other) / (0.5 * (abs(self.real) + abs(other))) < 0.1
         except ZeroDivisionError:
-            # Could do another inexact comparison here, this is just an example:
             return self.real == other
 
     def __ne__(self, other):
@@ -23,7 +21,17 @@ class Anomaly:
         self.rate = rate
 
     def okradius(self):
-        return (k / 2) ** 0.5
+        return (self.rate / 2) ** 0.5
+
+
+def safe_path(x1, y1, x2, y2, map):
+    grid = Grid(matrix=map)
+    start = grid.node(x1, y1)
+    end = grid.node(x2, y2)
+    finder = AStarFinder(diagonal_movement=DiagonalMovement.always)
+    path, runs = finder.find_path(start, end, grid)
+    print(path)
+    print(grid.grid_str(path=path, start=start, end=end))
 
 
 
@@ -43,7 +51,6 @@ for detector in data:
         else:
             raw = [[detector["coords"], anomaly["rate"], anomaly["id"]]]
             raw_anomalies[anomaly["id"]] = raw
-pprint(raw_anomalies)
 anomalies = []
 for anomaly in raw_anomalies.values():
     br = False
@@ -69,9 +76,20 @@ for anomaly in raw_anomalies.values():
             break
 for anomaly in anomalies:
     print(anomaly.id, anomaly.x, anomaly.y, anomaly.rate)
+map = []
+for y in range(30):
+    map.append([])
+    for x in range(40):
+        not_dangerous = True
+        for anomaly in anomalies:
+            if (x - anomaly.x) ** 2 + (y - anomaly.y) ** 2 <= anomaly.okradius():
+                not_dangerous = False
+                break
+        map[y].append(int(not_dangerous))
+print(map)
+
+safe_path(10, 0, 20, 20, map)
 # (x1 - xc) ** 2 + (y1 - yc) ** 2 = (r1 * k) ** 2
 # (x2 - xc) ** 2 + (y2 - yc) ** 2 = (r2 * k) ** 2
 # (x3 - xc) ** 2 + (y3 - yc) ** 2 = (r3 * k) ** 2
-#
-#
-#
+
