@@ -3,9 +3,7 @@ import sqlite3
 import sys
 from PyQt5.Qt import *
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PIL import Image
 import os
-import PIL
 import glob
 
 class StalkerGator(QMainWindow):
