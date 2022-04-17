@@ -96,7 +96,7 @@ class StalkerGator(QMainWindow):
                         not_dangerous = False
                         break
                 map[y].append(int(not_dangerous))
-        safe_path(10, 0, 20, 20, map)
+        safe_path(int(input("x start")), int(input("y start")), int(input("x end")), int(input("y end")), map)
 
 
         uic.loadUi("ui/stalkergator.ui", self)
